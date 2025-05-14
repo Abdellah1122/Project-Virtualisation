@@ -1,0 +1,457 @@
+﻿@page "/CourseQuiz"
+<PageTitle>Quiz</PageTitle>
+@inject NavigationManager NavigationManager
+@inject CourseService CService
+
+<style>
+    /* Quiz Section */
+    .quiz-section {
+        padding: 3rem 0;
+    }
+
+    .quiz-header {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+        .quiz-header p {
+            max-width: 600px;
+            margin: 0 auto 1rem;
+        }
+
+    .quiz-container {
+        background-color: white;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-md);
+        padding: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .quiz-question {
+        margin-bottom: 2.5rem;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+        .quiz-question:last-child {
+            margin-bottom: 1.5rem;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+    .question-number {
+        font-weight: 600;
+        color: var(--primary-color);
+        margin-bottom: 0.5rem;
+    }
+
+    .question-text {
+        font-size: 1.25rem;
+        font-weight: 500;
+        margin-bottom: 1.5rem;
+    }
+
+    .options-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .option-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+        padding: 1rem;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        cursor: pointer;
+        transition: var(--transition);
+    }
+
+        .option-item:hover {
+            background-color: var(--primary-light);
+            border-color: var(--primary-color);
+        }
+
+        .option-item.selected {
+            background-color: var(--primary-light);
+            border-color: var(--primary-color);
+        }
+
+    .option-radio {
+        appearance: none;
+        -webkit-appearance: none;
+        width: 20px;
+        height: 20px;
+        border: 2px solid var(--border-color);
+        border-radius: 50%;
+        outline: none;
+        margin-top: 0.125rem;
+        position: relative;
+        cursor: pointer;
+    }
+
+        .option-radio:checked {
+            border-color: var(--primary-color);
+        }
+
+            .option-radio:checked::before {
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 10px;
+                height: 10px;
+                background-color: var(--primary-color);
+                border-radius: 50%;
+            }
+
+    .option-label {
+        flex: 1;
+    }
+
+    .quiz-actions {
+        display: flex;
+        justify-content: center;
+        margin-top: 2rem;
+    }
+
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.75rem 1.5rem;
+        border-radius: var(--border-radius);
+        font-weight: 500;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: var(--transition);
+        text-align: center;
+        border: none;
+    }
+
+    .btn-primary {
+        background-color: var(--primary-color);
+        color: white;
+    }
+
+        .btn-primary:hover {
+            background-color: #6941C6;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+    .btn-secondary {
+        background-color: transparent;
+        color: var(--text-color);
+        border: 1px solid var(--border-color);
+        margin-right: 1rem;
+    }
+
+        .btn-secondary:hover {
+            background-color: var(--light-background);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+    .btn-success {
+        background-color: var(--success-color);
+        color: white;
+    }
+
+        .btn-success:hover {
+            background-color: #0E9F5D;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+    /* Congratulations Section */
+    .congrats-section {
+        display: none;
+        text-align: center;
+        padding: 3rem 0;
+    }
+
+    .congrats-container {
+        background-color: white;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-md);
+        padding: 3rem 2rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .congrats-icon {
+        width: 80px;
+        height: 80px;
+        background-color: var(--primary-light);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+    }
+
+        .congrats-icon svg {
+            width: 40px;
+            height: 40px;
+            color: var(--primary-color);
+        }
+
+    .congrats-title {
+        font-size: 1.75rem;
+        margin-bottom: 1rem;
+    }
+
+    .congrats-message {
+        max-width: 500px;
+        margin: 0 auto 2rem;
+    }
+
+    .certificate-preview {
+        max-width: 400px;
+        margin: 0 auto 2rem;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        padding: 1.5rem;
+        background-color: var(--light-background);
+        position: relative;
+    }
+
+        .certificate-preview::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%237F56D9' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+            border-radius: var(--border-radius);
+            opacity: 0.5;
+        }
+
+    .certificate-content {
+        position: relative;
+        text-align: center;
+    }
+
+    .certificate-logo {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--secondary-color);
+        margin-bottom: 1rem;
+    }
+
+        .certificate-logo span {
+            color: var(--primary-color);
+        }
+
+    .certificate-title {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+        color: var(--secondary-color);
+    }
+
+    .certificate-name {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+    }
+
+    .certificate-course {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .certificate-date {
+        font-size: 0.875rem;
+        color: var(--light-text);
+    }
+
+    .certificate-seal {
+        width: 60px;
+        height: 60px;
+        margin: 1rem auto;
+        background-color: var(--primary-light);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+        .certificate-seal svg {
+            width: 30px;
+            height: 30px;
+            color: var(--primary-color);
+        }
+
+    .action-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+    }
+</style>
+
+
+@if (course != null)
+{
+    <section class="quiz-section" id="quizSection">
+        <div class="container">
+            <div class="quiz-header">
+                <h1>@course.Title</h1>
+                <p>You need to score 100% to pass. Good luck!</p>
+            </div>
+
+            <div class="quiz-container">
+                @foreach (var q in course.Quiz.Select((value, index) => new { value, index }))
+                {
+                    <div class="quiz-question">
+                        <div class="question-number">Question @(q.index + 1) of @course.Quiz.Count</div>
+                        <div class="question-text">@q.value.QuestionText</div>
+                        <div class="options-list">
+                            @foreach (var o in q.value.Options)
+                            {
+                                <label class="option-item @(selectedAnswers.ContainsKey(q.index) && selectedAnswers[q.index] == o.Id ? "selected" : "")">
+                                    <input type="radio"
+                                           class="option-radio"
+                                           name="question-@q.index"
+                                           value="@o.Id"
+                                           @onchange="() => SelectAnswer(q.index, o.Id)"
+                                           checked="@(selectedAnswers.ContainsKey(q.index) && selectedAnswers[q.index] == o.Id)">
+                                    <div class="option-label">@o.Text</div>
+                                </label>
+                            }
+                        </div>
+                        @* Removed individual question validation and reset buttons for simplicity *@
+                    </div>
+                }
+            </div>
+
+            <div class="quiz-actions">
+                <button class="btn btn-secondary" @onclick="ResetAllAnswers">Reset All Answers</button>
+                <button class="btn btn-primary" @onclick="SubmitQuiz" disabled="@(!AllQuestionsAnswered())">Submit Quiz</button>
+            </div>
+        </div>
+    </section>
+}
+else
+{
+    <p>Loading quiz...</p>
+}
+
+@code {
+    Course course;
+    private Dictionary<int, int> selectedAnswers = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Console.WriteLine("CourseQuiz: OnInitializedAsync started.");
+        course = CService.GetCourse();
+
+        if (course == null)
+        {
+            Console.WriteLine("CourseQuiz: Course is null after getting from service.");
+        }
+        else if (course.Quiz == null)
+        {
+            Console.WriteLine("CourseQuiz: Course.Quiz is null.");
+        }
+        else if (!course.Quiz.Any())
+        {
+            Console.WriteLine("CourseQuiz: Course.Quiz is empty.");
+        }
+        else
+        {
+            Console.WriteLine($"CourseQuiz: Course '{course.Title}' loaded with {course.Quiz.Count} questions.");
+        }
+        // It's good practice to call StateHasChanged if data is loaded asynchronously
+        // and affects the initial render, but GetCourse() is synchronous here.
+    }
+
+    private void SelectAnswer(int questionIndex, int optionId)
+    {
+        selectedAnswers[questionIndex] = optionId;
+        Console.WriteLine($"CourseQuiz: Question {questionIndex + 1} answered with option {optionId}. Total answers: {selectedAnswers.Count}");
+        // Force UI update for the disabled state of the button if it depends on AllQuestionsAnswered()
+        StateHasChanged();
+    }
+
+    private bool AllQuestionsAnswered()
+    {
+        if (course == null || course.Quiz == null || !course.Quiz.Any())
+        {
+            // If there are no questions, arguably all (zero) questions are answered.
+            // Or, if there should always be questions, this indicates an issue.
+            // For the button's sake, let's assume if quiz isn't ready, they aren't "answered".
+            Console.WriteLine("CourseQuiz: AllQuestionsAnswered - Course or Quiz not ready or empty.");
+            return false;
+        }
+        bool allAnswered = selectedAnswers.Count == course.Quiz.Count;
+        Console.WriteLine($"CourseQuiz: AllQuestionsAnswered check: {allAnswered}. Selected: {selectedAnswers.Count}, Total Questions: {course.Quiz.Count}");
+        return allAnswered;
+    }
+
+    private void ResetAllAnswers()
+    {
+        selectedAnswers.Clear();
+        Console.WriteLine("CourseQuiz: All answers reset.");
+        StateHasChanged();
+    }
+
+    private async Task SubmitQuiz()
+    {
+        Console.WriteLine("CourseQuiz: SubmitQuiz method called.");
+
+        if (course == null || course.Quiz == null || !course.Quiz.Any())
+        {
+            Console.WriteLine("CourseQuiz: SubmitQuiz - Course or quiz data is not available. Aborting.");
+            // Consider adding user feedback here, e.g., using a message variable displayed in HTML
+            // await JSRuntime.InvokeVoidAsync("alert", "Error: Quiz data is not available.");
+            return;
+        }
+        Console.WriteLine($"CourseQuiz: SubmitQuiz - Proceeding with {course.Quiz.Count} questions.");
+
+        if (!AllQuestionsAnswered())
+        {
+            Console.WriteLine("CourseQuiz: SubmitQuiz - Not all questions answered. Aborting.");
+            // Consider adding user feedback here
+            // await JSRuntime.InvokeVoidAsync("alert", "Please answer all questions before submitting.");
+            return;
+        }
+        Console.WriteLine("CourseQuiz: SubmitQuiz - All questions answered. Calculating score.");
+
+        int correctAnswers = 0;
+        for (int i = 0; i < course.Quiz.Count; i++)
+        {
+            if (selectedAnswers.TryGetValue(i, out int selectedOptionId))
+            {
+                if (selectedOptionId == course.Quiz[i].CorrectOptionId)
+                {
+                    correctAnswers++;
+                }
+            }
+        }
+        Console.WriteLine($"CourseQuiz: SubmitQuiz - Correct answers: {correctAnswers} out of {course.Quiz.Count}.");
+
+        if (correctAnswers == course.Quiz.Count) // 100% condition
+        {
+            Console.WriteLine("CourseQuiz: SubmitQuiz - Quiz passed! Navigating to /Congrat.");
+            NavigationManager.NavigateTo("/Congratulations");
+        }
+        else
+        {
+            Console.WriteLine("CourseQuiz: SubmitQuiz - Quiz not passed (not 100%). No navigation.");
+            // Provide feedback to the user that they didn't pass
+            // For example, you could set a message property and display it in your HTML,
+            // or use IJSRuntime to show an alert if you inject it.
+            // Example (requires IJSRuntime injection):
+            // await JSRuntime.InvokeVoidAsync("alert", $"You scored {correctAnswers}/{course.Quiz.Count}. You need 100% to pass. Please review your answers.");
+            // For now, just a console log:
+            Console.WriteLine($"User scored {correctAnswers} out of {course.Quiz.Count}. Required 100%.");
+            // You might want to add an alert here too using IJSRuntime if you re-add it.
+            // For example: await JSRuntime.InvokeVoidAsync("alert", "You did not achieve 100%. Please try again.");
+        }
+    }
+}
