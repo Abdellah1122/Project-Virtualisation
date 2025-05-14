@@ -1,0 +1,77 @@
+{
+  "Version": 1,
+  "Hash": "ssj6BAlznHgZsEWmKibedSenM0fqAuWmwwstsfKnEgk=",
+  "Source": "ProjectVirtuqlisqtion",
+  "BasePath": "_content/ProjectVirtuqlisqtion",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "ProjectVirtuqlisqtion\\wwwroot",
+      "Source": "ProjectVirtuqlisqtion",
+      "ContentRoot": "C:\\Users\\kmano\\Documents\\projet_virtua\\Project-Virtualisation\\ProjectVirtuqlisqtion\\wwwroot\\",
+      "BasePath": "_content/ProjectVirtuqlisqtion",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\kmano\\Documents\\projet_virtua\\Project-Virtualisation\\ProjectVirtuqlisqtion\\obj\\Release\\net8.0\\scopedcss\\bundle\\ProjectVirtuqlisqtion.styles.css",
+      "SourceId": "ProjectVirtuqlisqtion",
+      "SourceType": "Computed",
+      "ContentRoot": "C:\\Users\\kmano\\Documents\\projet_virtua\\Project-Virtualisation\\ProjectVirtuqlisqtion\\obj\\Release\\net8.0\\scopedcss\\bundle\\",
+      "BasePath": "_content/ProjectVirtuqlisqtion",
+      "RelativePath": "ProjectVirtuqlisqtion.styles.css",
+      "AssetKind": "All",
+      "AssetMode": "CurrentProject",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "ScopedCss",
+      "AssetTraitValue": "ApplicationBundle",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\kmano\\Documents\\projet_virtua\\Project-Virtualisation\\ProjectVirtuqlisqtion\\obj\\Release\\net8.0\\scopedcss\\bundle\\ProjectVirtuqlisqtion.styles.css"
+    },
+    {
+      "Identity": "C:\\Users\\kmano\\Documents\\projet_virtua\\Project-Virtualisation\\ProjectVirtuqlisqtion\\obj\\Release\\net8.0\\scopedcss\\projectbundle\\ProjectVirtuqlisqtion.bundle.scp.css",
+      "SourceId": "ProjectVirtuqlisqtion",
+      "SourceType": "Computed",
+      "ContentRoot": "C:\\Users\\kmano\\Documents\\projet_virtua\\Project-Virtualisation\\ProjectVirtuqlisqtion\\obj\\Release\\net8.0\\scopedcss\\projectbundle\\",
+      "BasePath": "_content/ProjectVirtuqlisqtion",
+      "RelativePath": "ProjectVirtuqlisqtion.bundle.scp.css",
+      "AssetKind": "All",
+      "AssetMode": "Reference",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "ScopedCss",
+      "AssetTraitValue": "ProjectBundle",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\kmano\\Documents\\projet_virtua\\Project-Virtualisation\\ProjectVirtuqlisqtion\\obj\\Release\\net8.0\\scopedcss\\projectbundle\\ProjectVirtuqlisqtion.bundle.scp.css"
+    },
+    {
+      "Identity": "C:\\Users\\kmano\\Documents\\projet_virtua\\Project-Virtualisation\\ProjectVirtuqlisqtion\\wwwroot\\app.css",
+      "SourceId": "ProjectVirtuqlisqtion",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\kmano\\Documents\\projet_virtua\\Project-Virtualisation\\ProjectVirtuqlisqtion\\wwwroot\\",
+      "BasePath": "_content/ProjectVirtuqlisqtion",
+      "RelativePath": "app.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\app.css"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+/* Responsive Styles */
+@media (max-width: 576px) {
+    .auth-container[b-w0bl15pobe] {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        padding: 1.5rem 1rem;
+    }
+
+    .social-login[b-w0bl15pobe] {
+        flex-direction: column;
+    }
+}

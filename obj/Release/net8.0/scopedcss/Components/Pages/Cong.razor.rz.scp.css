@@ -1,0 +1,19 @@
+
+/* Responsive Styles */
+@media (max-width: 576px) {
+    .completion-card[b-5hzym3ktib] {
+        padding: 2rem 1rem;
+    }
+
+    .certificate[b-5hzym3ktib] {
+        padding: 1.5rem 1rem;
+    }
+
+    .certificate-name[b-5hzym3ktib] {
+        font-size: 1.25rem;
+    }
+
+    .certificate-course[b-5hzym3ktib] {
+        font-size: 1rem;
+    }
+}

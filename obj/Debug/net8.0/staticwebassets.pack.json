@@ -1,0 +1,29 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\kmano\\Documents\\projet_virtua\\Project-Virtualisation\\ProjectVirtuqlisqtion\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\ProjectVirtuqlisqtion.bundle.scp.css",
+      "PackagePath": "staticwebassets\\ProjectVirtuqlisqtion.bundle.scp.css"
+    },
+    {
+      "Id": "C:\\Users\\kmano\\Documents\\projet_virtua\\Project-Virtualisation\\ProjectVirtuqlisqtion\\wwwroot\\app.css",
+      "PackagePath": "staticwebassets\\app.css"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.ProjectVirtuqlisqtion.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.ProjectVirtuqlisqtion.props",
+      "PackagePath": "build\\ProjectVirtuqlisqtion.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.ProjectVirtuqlisqtion.props",
+      "PackagePath": "buildMultiTargeting\\ProjectVirtuqlisqtion.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.ProjectVirtuqlisqtion.props",
+      "PackagePath": "buildTransitive\\ProjectVirtuqlisqtion.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
