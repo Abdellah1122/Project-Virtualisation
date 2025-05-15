@@ -51,13 +51,10 @@ Ce projet est une **plateforme de formation en ligne** inspirée de Coursera/Ude
 1. **Cloner le projet**
 
    ```bash
-   git clone https://github.com/votre-utilisateur/elearning-platform.git
-   cd elearning-platform
+   git clone https://github.com/Abdellah1122/Project-Virtualisation.git
+   cd Project-Virtualisation
 
 ### 🔧 Étapes d'installation manuelle (suite)
-
--   **Configurer la base de données**
-    -   Créer une base nommée `ElearningDb`
     -   Modifier `appsettings.json` :
 
 
@@ -69,16 +66,13 @@ Ce projet est une **plateforme de formation en ligne** inspirée de Coursera/Ude
 
 
 ```bash
-dotnet tool install --global dotnet-ef
-dotnet ef database update
+Add-Migration M100
+Update-Database
 ```
-
+-   **Run the database script to fill db for test**
+  
 -   **Lancer l'application**
-
-bash
-
 ```bash
 dotnet run
 ```
 
-Accès via : 🔗 `http://localhost:5000`
